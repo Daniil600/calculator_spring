@@ -1,9 +1,7 @@
 package web.calculate.cal.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import web.calculate.cal.service.CalculateService;
 
 @RestController
@@ -15,29 +13,35 @@ public class CalculateController {
         this.calculateService = calculateService;
     }
 
+
     @GetMapping
     public String calculatorHello() {
         return "Добро пожаловать в калькулятор";
     }
 
     @GetMapping(path = "/sum")
-    public Integer sumAnswer(@RequestParam Integer a, @RequestParam Integer b) {
+    public String sumAnswer(@RequestParam(value = "num1", required = false) Integer a, @RequestParam(value = "num2", required = false) Integer b) {
 
         return calculateService.sum(a, b);
     }
 
     @GetMapping(path = "/minus")
-    public Integer minusAnswer(@RequestParam Integer a, @RequestParam Integer b) {
+    public String minusAnswer(@RequestParam(value = "num1", required = false) Integer a, @RequestParam(value = "num2", required = false) Integer b) {
         return calculateService.minus(a, b);
     }
 
     @GetMapping(path = "/division")
-    public Integer divisionAnswer(@RequestParam Integer a, @RequestParam Integer b) {
-        return calculateService.division(a, b);
+    public ResponseEntity<String> divisionAnswer(@RequestParam(value = "num1", required = false) Integer a, @RequestParam(value = "num2", required = false) Integer b) {
+
+        try {
+            return ResponseEntity.ok(calculateService.division(a,b));
+        }catch (ArithmeticException e){
+            return ResponseEntity.badRequest().body("Делить на ноль нельзя");
+        }
     }
 
     @GetMapping(path = "/multiplication")
-    public Integer multiplicationAnswer(@RequestParam Integer a, @RequestParam Integer b) {
-        return calculateService.multiplication(a, b);
+    public String multiplicationAnswer(@RequestParam(value = "num1", required = false) Integer a, @RequestParam(value = "num2", required = false) Integer b) {
+        return String.format(calculateService.multiplication(a, b));
     }
 }

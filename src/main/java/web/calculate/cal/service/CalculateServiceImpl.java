@@ -19,11 +19,6 @@ public class CalculateServiceImpl implements CalculateService {
         }
     }
 
-    public void divisionCheckException(Integer a, Integer b) {
-        if (a == 0 || b == 0) {
-            throw new ArithmeticException("делить на 0 нельзя");
-        }
-    }
 
     @Override
     public String sum(Integer a, Integer b) {

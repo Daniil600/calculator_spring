@@ -2,11 +2,11 @@ package web.calculate.cal.service;
 
 public interface CalculateService {
 
-    Integer sum(Integer a, Integer b);
+    String sum(Integer a, Integer b);
 
-    Integer minus(Integer a, Integer b);
+    String minus(Integer a, Integer b);
 
-    Integer division(Integer a, Integer b);
+    String division(Integer a, Integer b);
 
-    Integer multiplication(Integer a, Integer b);
+    String multiplication(Integer a, Integer b);
 }

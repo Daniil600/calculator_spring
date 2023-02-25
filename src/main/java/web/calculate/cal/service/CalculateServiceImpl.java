@@ -1,5 +1,6 @@
 package web.calculate.cal.service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -14,7 +15,7 @@ public class CalculateServiceImpl implements CalculateService {
 
     public void checkParams(Integer a, Integer b) {
         if (a == null || b == null) {
-            throw new ValidationException();
+            throw new RuntimeException("Нет одного из параметров");
         }
     }
 
@@ -25,28 +26,27 @@ public class CalculateServiceImpl implements CalculateService {
     }
 
     @Override
-    public Integer sum(Integer a, Integer b) {
+    public String sum(Integer a, Integer b) {
         checkParams(a, b);
-        return a + b;
+        return String.format(String.valueOf(a + b));
     }
 
     @Override
-    public Integer minus(Integer a, Integer b) {
+    public String minus(Integer a, Integer b) {
         checkParams(a, b);
-        return a - b;
+        return String.format(String.valueOf(a - b));
     }
 
     @Override
-    public Integer division(Integer a, Integer b) {
-        checkParams(a, b);
-        divisionCheckException(a, b);
-        return a / b;
+    public String division(Integer a, Integer b) {
+
+        return String.format(String.valueOf(a / b));
 
     }
 
     @Override
-    public Integer multiplication(Integer a, Integer b) {
+    public String multiplication(Integer a, Integer b) {
         checkParams(a, b);
-        return a * b;
+        return String.format(String.valueOf(a * b));
     }
 }
